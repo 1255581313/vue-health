@@ -1,0 +1,129 @@
+{
+  "errno": 0,
+  "data": {
+    "specificationList": [
+      {
+        "name": "尺寸",
+        "valueList": [
+          {
+            "id": 509,
+            "goodsId": 1181173,
+            "specification": "尺寸",
+            "value": "1.5米",
+            "picUrl": "",
+            "addTime": "2022-01-18 15:50:25",
+            "updateTime": "2022-01-18 15:50:25",
+            "deleted": false
+          },
+          {
+            "id": 510,
+            "goodsId": 1181173,
+            "specification": "尺寸",
+            "value": "1.8米",
+            "picUrl": "",
+            "addTime": "2022-01-18 15:50:25",
+            "updateTime": "2022-01-18 15:50:25",
+            "deleted": false
+          }
+        ]
+      }
+    ],
+    "groupon": [],
+    "issue": [
+      {
+        "id": 13,
+        "question": "测试数据",
+        "answer": "测试数据测试数据测试数据测试数据",
+        "addTime": "2021-12-26 19:05:15",
+        "updateTime": "2022-01-10 14:39:23",
+        "deleted": false
+      },
+      {
+        "id": 14,
+        "question": "上海",
+        "answer": "上海金山",
+        "addTime": "2022-01-10 14:39:50",
+        "updateTime": "2022-01-18 13:37:51",
+        "deleted": false
+      }
+    ],
+    "userHasCollect": 0,
+    "comment": {
+      "data": [],
+      "count": 0
+    },
+    "share": true,
+    "attribute": [
+      {
+        "id": 973,
+        "goodsId": 1181173,
+        "attribute": "材质",
+        "value": "实木",
+        "addTime": "2022-01-18 15:50:25",
+        "updateTime": "2022-01-18 15:50:25",
+        "deleted": false
+      }
+    ],
+    "brand": {
+      "id": 1046101,
+      "name": "品牌2",
+      "desc": "品牌2",
+      "picUrl": "http://122.51.199.160:8080/wx/storage/fetch/sxdibqcungtrxkycwion.PNG",
+      "sortOrder": 50,
+      "floorPrice": 700.00,
+      "addTime": "2022-01-15 22:18:12",
+      "updateTime": "2022-01-17 15:41:35",
+      "deleted": false
+    },
+    "productList": [
+      {
+        "id": 477,
+        "goodsId": 1181173,
+        "specifications": [
+          "1.5米"
+        ],
+        "price": 0.00,
+        "number": 0,
+        "url": "",
+        "addTime": "2022-01-18 15:50:25",
+        "updateTime": "2022-01-18 15:50:25",
+        "deleted": false
+      },
+      {
+        "id": 478,
+        "goodsId": 1181173,
+        "specifications": [
+          "1.8米"
+        ],
+        "price": 0.00,
+        "number": 0,
+        "url": "",
+        "addTime": "2022-01-18 15:50:25",
+        "updateTime": "2022-01-18 15:50:25",
+        "deleted": false
+      }
+    ],
+    "info": {
+      "id": 1181173,
+      "goodsSn": "10000326",
+      "name": "床",
+      "categoryId": 1036154,
+      "brandId": 1046101,
+      "gallery": [],
+      "keywords": "实木",
+      "brief": "",
+      "isOnSale": true,
+      "sortOrder": 100,
+      "picUrl": "http://122.51.199.160:8080/wx/storage/fetch/v6bvboxoy6gjcbodrino.png",
+      "isNew": true,
+      "isHot": false,
+      "unit": "个",
+      "counterPrice": 88.00,
+      "retailPrice": 0.00,
+      "addTime": "2022-01-18 15:50:25",
+      "updateTime": "2022-01-18 15:50:25",
+      "deleted": false
+    }
+  },
+  "errmsg": "成功"
+}

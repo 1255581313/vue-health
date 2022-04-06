@@ -1,0 +1,72 @@
+.vant-global {
+  .van-tab{
+    font-size: 18px;
+  }
+
+  .van-tabs{
+    background-color: #fafafa;
+
+  }
+  .van-tabs__content{
+
+    padding: 0 16px 60px 16px;
+  }
+
+
+  .van-swipe {
+    border-radius: 12px;
+  }
+
+  .van-swipe-item {
+    line-height: 150px;
+    height: 150px;
+  }
+
+  .van-swipe-item img {
+    height: 100%;
+    width: 100%;
+  }
+
+
+
+
+  .van-field__label {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    flex: none;
+    box-sizing: border-box;
+    // width: 6.2em;
+    margin-right: 12px;
+    // color: #646566;
+    text-align: left;
+    word-wrap: break-word;
+    margin-right: 92px;
+    margin-bottom: 7px;
+    line-height: 32px;
+    color: #333333;
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .van-field__control {
+    display: block;
+    box-sizing: border-box;
+    /* width: 100%; */
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    color: #323233;
+    line-height: inherit;
+    text-align: left;
+    /* background-color: transparent; */
+    border: 0;
+    resize: none;
+    /* margin-top: -1px; */
+    /* margin-right: 369px; */
+    color: #333333;
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}

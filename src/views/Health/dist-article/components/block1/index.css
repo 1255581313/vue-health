@@ -1,0 +1,105 @@
+.list-1-v-4 {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1.65rem;
+  margin-left: 0.01rem;
+  background-size: contain;
+  background-image: url(../../images/img_14.png);
+  width: 7.49rem;
+  height: 1.04rem;
+}
+.list-1-v-4 .primary-item-0 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.15rem;
+  margin-right: 1.29rem;
+}
+.list-1-v-4 .icon-home {
+  position: relative;
+  width: 0.42rem;
+  height: 0.44rem;
+}
+.list-1-v-4 .label-2 {
+  position: relative;
+  margin-top: 0.11rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #00b9b3;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}
+.list-1-v-4 .primary-item-1 {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 0.16rem;
+  margin-right: 1.28rem;
+}
+.list-1-v-4 .icon-list {
+  position: relative;
+  width: 0.45rem;
+  height: 0.44rem;
+}
+.list-1-v-4 .word-1 {
+  position: relative;
+  margin-top: 0.1rem;
+  max-width: 0.45rem;
+  height: 0.26rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #9fa9bb;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}
+.list-1-v-4 .primary-item-2 {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 0.16rem;
+  margin-right: 1.29rem;
+}
+.list-1-v-4 .icon-house {
+  position: relative;
+  margin-left: 0.01rem;
+  width: 0.42rem;
+  height: 0.44rem;
+}
+.list-1-v-4 .tag-2 {
+  position: relative;
+  margin-top: 0.1rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #9fa9bb;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}
+.list-1-v-4 .primary-item-3 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.16rem;
+}
+.list-1-v-4 .icon-user {
+  position: relative;
+  width: 0.4rem;
+  height: 0.44rem;
+}
+.list-1-v-4 .label-3 {
+  position: relative;
+  margin-top: 0.1rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #9fa9bb;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}

@@ -1,0 +1,16 @@
+.title-wrapper {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-top: 0.51rem;
+  margin-left: 0.38rem;
+  font-weight: 600;
+  line-height: 0.48rem;
+  white-space: nowrap;
+}
+.title-wrapper .title-2 {
+  color: #000000;
+  font-family: PingFang SC;
+  font-size: 0.34rem;
+}

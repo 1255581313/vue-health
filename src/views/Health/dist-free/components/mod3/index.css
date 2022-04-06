@@ -1,0 +1,101 @@
+.tabbar-list {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1.66rem;
+  width: 7.5rem;
+  height: 1.04rem;
+  box-shadow: 0 -0.04rem 0.1rem 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+}
+.tabbar-list .primary-item-0 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.15rem;
+  margin-right: 1.29rem;
+}
+.tabbar-list .icon-home {
+  position: relative;
+  width: 0.42rem;
+  height: 0.44rem;
+}
+.tabbar-list .word {
+  position: relative;
+  margin-top: 0.11rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #9fa9bb;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}
+.tabbar-list .primary-item-1 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.16rem;
+  margin-right: 1.27rem;
+  width: 0.46rem;
+}
+.tabbar-list .icon-list {
+  position: relative;
+  width: 0.45rem;
+  height: 0.44rem;
+}
+.tabbar-list .tag-1 {
+  position: relative;
+  margin-top: 0.1rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #b3bccc;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}
+.tabbar-list .primary-item-2 {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 0.16rem;
+  margin-right: 1.29rem;
+}
+.tabbar-list .icon-house {
+  position: relative;
+  margin-left: 0.01rem;
+  width: 0.42rem;
+  height: 0.44rem;
+}
+.tabbar-list .label-2 {
+  position: relative;
+  margin-top: 0.1rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #00b9b3;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}
+.tabbar-list .primary-item-3 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.16rem;
+}
+.tabbar-list .icon-user {
+  position: relative;
+  width: 0.4rem;
+  height: 0.44rem;
+}
+.tabbar-list .word-1 {
+  position: relative;
+  margin-top: 0.1rem;
+  line-height: 0.26rem;
+  white-space: nowrap;
+  color: #9fa9bb;
+  font-family: .PingFang SC;
+  font-size: 0.22rem;
+  font-weight: 400;
+}

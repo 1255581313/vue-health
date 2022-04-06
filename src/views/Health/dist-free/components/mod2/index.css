@@ -1,0 +1,15 @@
+.banner-wrapper {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 0.34rem;
+  border-radius: 0.1rem;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.banner-wrapper .banner {
+  width: 6.76rem;
+  height: 2.86rem;
+}

@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  align-self: center;
+  flex-direction: column;
+  margin-top: 0.34rem;
+  border-radius: 0.1rem;
+  background-color: #ffffff;
+  height: 9.05rem;
+  overflow: hidden;
+}
+.container .banner {
+  position: relative;
+  margin-top: 0.15rem;
+  width: 6.76rem;
+  height: 2.05rem;
+}
+.container .cover {
+  position: relative;
+  margin-top: 0.09rem;
+  width: 6.76rem;
+  height: 2.05rem;
+}
+.container .banner-1 {
+  position: relative;
+  margin-top: 0.15rem;
+  width: 6.76rem;
+  height: 2.05rem;
+}
+.container .cover-1 {
+  position: relative;
+  margin-top: 0.09rem;
+  width: 6.76rem;
+  height: 2.05rem;
+}

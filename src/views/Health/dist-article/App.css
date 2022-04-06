@@ -1,0 +1,8 @@
+.page {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #fafbfb;
+  width: 7.5rem;
+  overflow: hidden;
+}

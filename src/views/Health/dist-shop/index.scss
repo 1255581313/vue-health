@@ -1,0 +1,11 @@
+.shop-page-dist {
+  padding-bottom: 1.32rem;
+  box-sizing: border-box;
+  &.page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fafbfb;
+    overflow: hidden;
+  }
+}

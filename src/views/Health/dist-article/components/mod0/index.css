@@ -1,0 +1,135 @@
+.statusbar {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #00b9b3;
+  width: 7.5rem;
+  height: 1.43rem;
+}
+.statusbar .input-0 {
+  webkit-box-orient: vertical;
+  display: -webkit-inline-box;
+  webkit-line-clamp: 4;
+  position: absolute;
+  top: 0;
+  left: -0.09rem;
+  width: 0.2rem;
+  height: 1.12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 0.28rem;
+  color: #7e7e7e;
+  font-family: PingFang SC;
+  font-size: 0.2rem;
+  font-weight: 500;
+}
+.statusbar .status-bar {
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 0.06rem;
+  margin-left: 0.17rem;
+  height: 0.32rem;
+  margin-bottom: -0.38rem;
+}
+.statusbar .organization-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: -0.02rem;
+  margin-right: 0.18rem;
+  height: 0.28rem;
+}
+.statusbar .badge {
+  margin-top: -0.02rem;
+  margin-right: 0.07rem;
+  width: 0.33rem;
+  height: 0.2rem;
+}
+.statusbar .organization {
+  line-height: 0.24rem;
+  white-space: nowrap;
+  color: #000000;
+  font-family: .PingFang SC;
+  font-size: 0.24rem;
+  font-weight: 400;
+}
+.statusbar .label {
+  margin-top: -0.04rem;
+  margin-right: 1.58rem;
+  width: 0.3rem;
+  height: 0.2rem;
+}
+.statusbar .label-1 {
+  margin-top: 0.04rem;
+  margin-right: 1.76rem;
+  line-height: 0.24rem;
+  white-space: pre;
+  color: #000000;
+  font-family: PingFang SC;
+  font-size: 0.24rem;
+  font-weight: normal;
+}
+.statusbar .group {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: -0.01rem;
+  height: 0.31rem;
+}
+.statusbar .icon-bluetooth {
+  margin-top: -0.05rem;
+  margin-right: 0.07rem;
+  width: 0.15rem;
+  height: 0.26rem;
+}
+.statusbar .percent {
+  margin-top: 0.03rem;
+  margin-right: 0.06rem;
+  line-height: 0.24rem;
+  white-space: nowrap;
+  color: #000000;
+  font-family: PingFang SC;
+  font-size: 0.24rem;
+  font-weight: normal;
+}
+.statusbar .view {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -0.02rem;
+  margin-right: 0.02rem;
+  border-width: 0.02rem;
+  border-style: solid;
+  border-radius: 0.05rem;
+  border-color: rgba(0, 0, 0, 0.4);
+  width: 0.48rem;
+  height: 0.23rem;
+  overflow: hidden;
+}
+.statusbar .mask {
+  border-radius: 0.01rem;
+  background-color: #000000;
+  width: 0.4rem;
+  height: 0.15rem;
+  overflow: hidden;
+}
+.statusbar .dot {
+  margin-top: -0.01rem;
+  width: 0.03rem;
+  height: 0.08rem;
+}
+.statusbar .title {
+  position: relative;
+  align-self: center;
+  margin-top: 0.65rem;
+  line-height: 0.5rem;
+  white-space: nowrap;
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 0.36rem;
+  font-weight: 400;
+}
