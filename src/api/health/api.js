@@ -157,6 +157,24 @@ export function addressSave(data) {
      data
    })
 }
+
+const GoodsList = '/authapi/base_goods/getGoodsList' //商品列表
+export function goodsList() {
+  return request({
+    url: GoodsList,
+    method: 'post'
+  })
+}
+
+const GoodsDetail = '/authapi/base_goods/get' //商品详细
+export function goodsDetail(query) {
+  return request({
+    url: GoodsDetail,
+    method: 'post',
+    params: query
+  })
+}
+
 // const AddressDelete = 'wx/address/delete' // 保存收货地址
 // export function addressDelete(data) {
 //   return request({

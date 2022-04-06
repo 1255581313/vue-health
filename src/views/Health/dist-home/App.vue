@@ -6,7 +6,7 @@
       </div>
       <span class="title">梁国辉</span>
     </div>
-    <div class="time-wrapper"><span class="time">6月17日 23:32</span></div>
+    <div class="time-wrapper"><span class="time">{{measureTime}}</span></div>
     <div class="list">
       <div class="primary-2">
         <div class="block-1">
@@ -72,8 +72,8 @@
       <div class="device-box cover">
         <div class="ad">
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item v-for="(image, index) in advertisingList" :key="index">
-              <img v-lazy="image"/>
+            <van-swipe-item v-for="(item, index) in advertisingList" :key="index" v-on:click="goodsDetail(item.jumpLink)">
+              <img v-lazy="item.content"/>
               <!--<van-image
                 :src="image"
               />-->
@@ -239,6 +239,7 @@ export default {
   },
   data() {
     return {
+      measureTime: null,
       active: 0,
       lineChartData: lineChartData.bloodPressure,
       navData: navData.bloodPressure,
@@ -316,7 +317,9 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestBloodPressureByUserId(query).then(res => {
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.sbp
         this.navData[1].num = res.data.dbp
         this.navData[2].num = res.data.pulse
@@ -350,8 +353,9 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestBloodSugarByUserId(query).then(res => {
-        console.log(res.data.dataValue)
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
       }).catch(err => {
         console.log(err)
@@ -361,8 +365,9 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestBloodOxygenByUserId(query).then(res => {
-        console.log(res.data.dataValue)
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
       }).catch(err => {
         console.log(err)
@@ -372,8 +377,9 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestUricAcidByUserId(query).then(res => {
-        console.log(res.data.dataValue)
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
       }).catch(err => {
         console.log(err)
@@ -383,8 +389,9 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestCholesterolByUserId(query).then(res => {
-        console.log(res.data.dataValue)
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
       }).catch(err => {
         console.log(err)
@@ -394,8 +401,9 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestGlycerinByUserId(query).then(res => {
-        console.log(res.data.dataValue)
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
       }).catch(err => {
         console.log(err)
@@ -405,24 +413,30 @@ export default {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
+      this.measureTime = null;
       newestBodyTemperatureByUserId(query).then(res => {
-        console.log(res.data.dataValue)
+        this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
       }).catch(err => {
         console.log(err)
       })
     },
+    //广告图
     getAdvertisingList() {
       getAdvertisingList().then(res => {
         if(res.data != null && res.data.length > 0){
           res.data.forEach(item => {
-            this.advertisingList.push(item.content)
+            this.advertisingList.push(item)
           })
         }
       }).catch(err => {
         console.log(err)
       })
     },
+    goodsDetail(jumpLink) {
+      this.$router.push(jumpLink)
+    },
+
   }
 }
 </script>

@@ -18,9 +18,9 @@
       v-for="(item, index) in list"
       :key="index"
       :price="item.price"
-      :title="item.title"
-      :thumb="item.img"
-      :origin-price="item.originPrice"
+      :title="item.name"
+      :thumb="item.path"
+      :origin-price="item.originalPrice"
       @click="onDetailClick(item.id)"
     >
       <template #content>
@@ -31,9 +31,8 @@
 </template>
 
 <script>
+  import { goodsList} from '@/api/health/api'
 import { Search, Card } from 'vant'
-var list = require('./list.json')
-
 export default {
   name: 'GoodList',
   components: {
@@ -43,38 +42,21 @@ export default {
   data() {
     return {
       msg: 'home',
-      list: [
-        {
-          price: 20,
-          title: '血糖',
-          img: require('./images/xt.jpg'),
-          originPrice: 30
-        },
-        {
-          price: 20,
-          title: '总胆固醇',
-          img: require('./images/zdgc.jpg'),
-          originPrice: 30
-        },
-        {
-          price: 20,
-          title: '甘油三酯',
-          img: require('./images/gysz.jpg'),
-          originPrice: 30
-        },
-        {
-          price: 20,
-          title: '尿酸',
-          img: require('./images/ns.jpg'),
-          originPrice: 30
-        }
-      ]
+      list: []
     }
   },
+  created() {
+    this.getGoodsList()
+  },
   methods: {
+    getGoodsList(){
+      goodsList().then(res => {
+         this.list = res.data
+      })
+    },
     onDetailClick(id) {
       // this.$router.push({ path: '/goods-detail', query: { id } });
-      this.$router.push({ path: '/dist-shop-detail' })
+      this.$router.push({ path: '/dist-shop-detail' , query: {goodsId : id } })
     }
   }
 }

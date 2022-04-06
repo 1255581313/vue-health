@@ -31,18 +31,18 @@
     <!-- <span class="title">商品</span>
     </div> -->
     <div class="container">
-      <img class="thumbnail" src="./images/xt.jpg" />
+      <img class="thumbnail" :src="goodsInfo.path" />
     </div>
     <div class="goods">
-      <span class="summary">血糖试纸</span>
-      <div class="body"> <span class="price">¥</span> <span class="caption">20</span> </div>
+      <span class="summary">{{goodsInfo.name}}</span>
+      <div class="body"> <span class="price">¥</span> <span class="caption">{{goodsInfo.price}}</span> </div>
       <!-- <div class="footer">
       <div class="benifit-wrapper">
         <span class="benifit">店铺券满10减2</span>
       </div>
       <div class="group-1"><span class="buy">购买得积分</span></div>
     </div> -->
-      <div class="origin-price">原价：¥ 30.00</div>
+      <div class="origin-price">原价：¥ {{goodsInfo.originalPrice}}</div>
     </div>
     <div class="list-1-v-4">
       <div class="header-item-0" @click="show1 = true">
@@ -169,6 +169,7 @@ class="contact"
   </div>
 </template>
 <script>
+  import { goodsDetail} from '@/api/health/api'
 import { GoodsAction, GoodsActionIcon, GoodsActionButton, Popup, Sku } from 'vant'
 // import popupProps from './popup-props'
 
@@ -183,6 +184,7 @@ export default {
   },
   data() {
     return {
+      goodsInfo:{},
       show: false,
       constants: {},
       show1: false,
@@ -265,7 +267,19 @@ export default {
       // return props_arr || []
     }
   },
+
+  created() {
+    this.goodsId = this.$route.query.goodsId
+    if (this.goodsId !== -1 && this.goodsId !== 0) {
+      this.init()
+    }
+  },
   methods: {
+    init() {
+      goodsDetail({ id: this.goodsId }).then(res => {
+        this.goodsInfo = res.data
+      })
+    },
     showPopup() {
       this.show = true
     },
