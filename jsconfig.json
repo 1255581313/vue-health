@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+        "@/*": ["src/*"],
+        "@crud/*": ["src/components/Crud/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
