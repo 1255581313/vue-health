@@ -6,7 +6,7 @@
       </div>
       <span class="title">梁国辉</span>
     </div>
-    <div class="time-wrapper"><span class="time">{{measureTime}}</span></div>
+    <div class="time-wrapper"><span class="time">{{measureTime}}</span><span class="time" style="color: #00b9b3;font-weight: bold;" v-if="measureAllCount != null">（第{{measureAllCount}}次)</span></div>
     <div class="list">
       <div class="primary-2">
         <div class="block-1">
@@ -88,7 +88,8 @@
 <script>
 import { newestBloodPressureByUserId, newestBloodSugarByUserId, newestBloodOxygenByUserId, newestUricAcidByUserId, newestCholesterolByUserId, newestGlycerinByUserId,
   newestBodyTemperatureByUserId, listBloodPressureByUserId, listBloodSugarByUserId, getAdvertisingList, listBloodOxygenByUserId, listUricAcidByUserId, listCholesterolByUserId,
-  listGlycerinByUserId, listBodyTemperatureByUserId} from '@/api/health/api'
+  listGlycerinByUserId, listBodyTemperatureByUserId, getAllBloodPressureCountByUserId, getAllBloodSugarCountByUserId, getAllBloodOxygenCountByUserId, getAllUricAcidCountByUserId,
+  getAllCholesterolCountByUserId, getAllGlycerinCountByUserId, getAllBodyTemperatureCountByUserId} from '@/api/health/api'
 const lineChartData = {
   bloodPressure: {
     data1: [],
@@ -166,7 +167,7 @@ const navData = {
       num: '0',
       unit: '次/分钟',
       color: 'num-1'
-    }
+    },
   ],
   bloodSugar: [
     {
@@ -235,7 +236,7 @@ const navDataInfo = {
   bloodPressure: '血压目标：高压 < 140，低压 > 90， 心率 60～100次/分',
   bloodSugar: '血糖目标：空腹 ≤ 6.1 mmol/L，餐后 ≤ 10.1mmol/L',
   bloodOxygen: '血氧 ≥ 94SpO2， 心率 60～100次/分',
-  uricAcid: '尿酸目标：空腹（男）≤ 420mmol/L，女 ≤ 356mmol/L',
+  uricAcid: '尿酸目标：空腹（男）≤ 420umol/L，女 ≤ 356umol/L',
   cholesterol: '总胆固醇：5.17mmol/L',
   triglyceride: '甘油三酯：1.71mmol/L',
   temperature: '体温 36～37℃',
@@ -244,6 +245,7 @@ const navDataInfo = {
 }
 import { Swipe, SwipeItem } from 'vant'
 import LineChart from '../components/LineChart/'
+import moment from "moment"
 export default {
   components: {
     [Swipe.name]: Swipe,
@@ -252,6 +254,7 @@ export default {
   },
   data() {
     return {
+      measureAllCount: null,
       measureTime: null,
       active: 0,
       lineChartData: lineChartData.bloodPressure,
@@ -340,8 +343,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestBloodPressureByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.sbp
         this.navData[0].unit = res.data.dataUnit
         this.navData[1].num = res.data.dbp
@@ -362,13 +366,21 @@ export default {
             arraySbp.push(item.sbp)
             arrayDbp.push(item.dbp)
             arrayPulse.push(item.pulse)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arraySbp
         this.lineChartData.data2 = arrayDbp
         this.lineChartData.data3 = arrayPulse
         this.lineChartData.xAxisData = arrayMeasureTime
+      }).catch(err => {
+        console.log(err)
+      })
+
+      getAllBloodPressureCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
       }).catch(err => {
         console.log(err)
       })
@@ -379,8 +391,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestBloodSugarByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.dataValue
         this.navData[0].unit = res.data.dataUnit
       }).catch(err => {
@@ -401,6 +414,14 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+
+      getAllBloodSugarCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //血氧
     getBloodOxygen() {
@@ -408,8 +429,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestBloodOxygenByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.dataValue
         this.navData[0].unit = res.data.dataUnit
         this.navData[1].num = res.data.heartRate
@@ -434,6 +456,14 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+
+      getAllBloodOxygenCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //尿酸
     getUricAcid() {
@@ -441,8 +471,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestUricAcidByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.dataValue
         this.navData[0].unit = res.data.dataUnit
       }).catch(err => {
@@ -462,6 +493,14 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+
+      getAllUricAcidCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //总胆固醇
     getCholesterol() {
@@ -469,8 +508,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestCholesterolByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.dataValue
         this.navData[0].unit = res.data.dataUnit
       }).catch(err => {
@@ -491,6 +531,14 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+
+      getAllCholesterolCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //甘油三酯
     getGlycerin() {
@@ -498,8 +546,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestGlycerinByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.dataValue
         this.navData[0].unit = res.data.dataUnit
       }).catch(err => {
@@ -520,6 +569,14 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+
+      getAllGlycerinCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     //体温
     getBodyTemperature() {
@@ -527,8 +584,9 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       this.measureTime = null
+      this.measureAllCount = null
       newestBodyTemperatureByUserId(query).then(res => {
-        this.measureTime = res.data.measureTime
+        this.measureTime = moment(res.data.measureTime).format("yyyy年MM月DD日 HH:mm:ss")
         this.navData[0].num = res.data.dataValue
         this.navData[0].unit = res.data.dataUnit
       }).catch(err => {
@@ -549,9 +607,18 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+
+      getAllBodyTemperatureCountByUserId(query).then(res => {
+        if (res.data != null && res.data > 0) {
+          this.measureAllCount = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     getElectrocardiogram() {
-
+      this.measureTime = null
+      this.measureAllCount = null
     },
     // 广告图
     getAdvertisingList() {

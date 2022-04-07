@@ -27,6 +27,15 @@ export function listBloodPressureByUserId(data) {
   })
 }
 
+// 查询总共测了多少条血压
+export function getAllBloodPressureCountByUserId(query) {
+  return request({
+    url: '/authapi/blood_pressureDeviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
+  })
+}
+
 // 查询用户最新血糖数据
 export function newestBloodSugarByUserId(query) {
   return request({
@@ -42,6 +51,15 @@ export function listBloodSugarByUserId(data) {
     url: '/authapi/blood_sugarDeviceDataLog/getListDataByUserId',
     method: 'post',
     data
+  })
+}
+
+// 查询总共测了多少条血糖
+export function getAllBloodSugarCountByUserId(query) {
+  return request({
+    url: '/authapi/blood_sugarDeviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
   })
 }
 
@@ -63,6 +81,15 @@ export function listBloodOxygenByUserId(data) {
   })
 }
 
+// 查询总共测了多少条血氧
+export function getAllBloodOxygenCountByUserId(query) {
+  return request({
+    url: '/authapi/blood_oxygenDeviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
+  })
+}
+
 // 查询用户最新尿酸数据
 export function newestUricAcidByUserId(query) {
   return request({
@@ -78,6 +105,15 @@ export function listUricAcidByUserId(data) {
     url: '/authapi/uric_acidDeviceDataLog/getListDataByUserId',
     method: 'post',
     data
+  })
+}
+
+// 查询总共测了多少条尿酸
+export function getAllUricAcidCountByUserId(query) {
+  return request({
+    url: '/authapi/uric_acidDeviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
   })
 }
 
@@ -99,6 +135,15 @@ export function listCholesterolByUserId(data) {
   })
 }
 
+// 查询总共测了多少条总胆固醇
+export function getAllCholesterolCountByUserId(query) {
+  return request({
+    url: '/authapi/cholesterol_deviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
+  })
+}
+
 // 查询用户最新甘油三酯数据
 export function newestGlycerinByUserId(query) {
   return request({
@@ -117,6 +162,15 @@ export function listGlycerinByUserId(data) {
   })
 }
 
+// 查询总共测了多少条甘油三酯
+export function getAllGlycerinCountByUserId(query) {
+  return request({
+    url: '/authapi/glycerin_deviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
+  })
+}
+
 // 查询用户最新体温数据
 export function newestBodyTemperatureByUserId(query) {
   return request({
@@ -132,6 +186,15 @@ export function listBodyTemperatureByUserId(data) {
     url: '/authapi/body_temperatureDeviceDataLog/getListDataByUserId',
     method: 'post',
     data
+  })
+}
+
+// 查询总共测了多少条体温
+export function getAllBodyTemperatureCountByUserId(query) {
+  return request({
+    url: '/authapi/body_temperatureDeviceDataLog/getAllCountByUserId',
+    method: 'post',
+    params: query
   })
 }
 
