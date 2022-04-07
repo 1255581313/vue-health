@@ -126,7 +126,7 @@ export default {
         page: this.page,
         limit: this.limit
       }).then(res => {
-        this.orderList.push(...res.data.data.list)
+        this.orderList.push(...res.data.data.bloodPressureList)
         this.loading = false
         this.finished = res.data.data.page >= res.data.data.pages
       })

@@ -164,7 +164,7 @@ export default {
     getCoupons() {
       const { AddressId, CartId, CouponId } = getLocalStorage('AddressId', 'CartId', 'CouponId')
       couponSelectList({ cartId: CartId, grouponRulesId: 0 }).then(res => {
-        var cList = res.data.data.list
+        var cList = res.data.data.bloodPressureList
         this.coupons = []
         this.disabledCoupons = []
         for (var i = 0; i < cList.length; i++) {

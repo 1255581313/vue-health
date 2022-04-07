@@ -24,6 +24,27 @@ export const routes = [
         }
       },
       {
+        path: 'dist-home-blood-pressure-list',
+        component: resolve => require(['@/views/Health/dist-home/bloodPressureList'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-home-blood-oxygen-list',
+        component: resolve => require(['@/views/Health/dist-home/bloodOxygenList'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-home-other-list',
+        component: resolve => require(['@/views/Health/dist-home/otherList'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
         path: 'dist-shop-detail',
         component: resolve => require(['@/views/Health/dist-shop/App'], resolve),
         meta: {

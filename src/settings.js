@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/vue-app',
+  publicPath: '/',
 
   title: '智能管理系统'
 

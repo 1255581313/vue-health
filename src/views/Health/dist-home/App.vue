@@ -24,9 +24,10 @@
               </div> -->
               <div v-for="(item, index) in navData" :key="index" class="group-item-1">
                 <span class="label-2">{{ item.label }}</span>
-                <div class="view-1">
-                  <span :class="item.color">{{ item.num }}</span> <span class="bmp">{{ item.unit }}</span>
-                </div>
+                  <span :class="item.color">{{ item.num }}</span>
+                  <span class="bmp">{{ item.unit }}</span>
+                <!-- <div class="view-1">
+                </div> -->
               </div>
             </div>
             <!-- <span class="mmhg-1">mmHg</span> -->
@@ -60,10 +61,10 @@
       <!-- <img class="banner" src="./images/img_8.png" /> -->
       <div class="chart-box banner">
         <div class="chart">
-          <line-chart height="300px" :chart-data="lineChartData" />
+          <line-chart height="150px" :chart-data="lineChartData"/>
         </div>
         <div class="btn-box">
-          <div class="btn" @click="getList">全部数据{{ active }}<span></span></div>
+          <div class="btn" @click="getList">全部数据<span></span></div>
         </div>
       </div>
     </div>
@@ -72,7 +73,7 @@
       <div class="device-box cover">
         <div class="ad">
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item v-for="(item, index) in advertisingList" :key="index" v-on:click="goodsDetail(item.jumpLink)">
+            <van-swipe-item v-for="(item, index) in advertisingList" :key="index" @click="goodsDetail(item.jumpLink)">
               <img v-lazy="item.content"/>
               <!--<van-image
                 :src="image"
@@ -85,41 +86,60 @@
   </div>
 </template>
 <script>
-import { newestBloodPressureByUserId, newestBloodSugarByUserId, newestBloodOxygenByUserId, newestUricAcidByUserId, newestCholesterolByUserId, newestGlycerinByUserId, newestBodyTemperatureByUserId, listBloodPressureByUserId, getAdvertisingList } from '@/api/health/api'
+import { newestBloodPressureByUserId, newestBloodSugarByUserId, newestBloodOxygenByUserId, newestUricAcidByUserId, newestCholesterolByUserId, newestGlycerinByUserId,
+  newestBodyTemperatureByUserId, listBloodPressureByUserId, listBloodSugarByUserId, getAdvertisingList, listBloodOxygenByUserId, listUricAcidByUserId, listCholesterolByUserId,
+  listGlycerinByUserId, listBodyTemperatureByUserId} from '@/api/health/api'
 const lineChartData = {
   bloodPressure: {
-    sbpData: [],
-    dbpData: [],
-    pulseData: [],
-    xAxisData: []
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'高压',
+    dataName2:'低压'
   },
   bloodSugar: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'血糖值'
   },
   bloodOxygen: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'血氧值',
+    dataName2:'心率'
   },
   uricAcid: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'尿酸值'
   },
   cholesterol: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'总胆固醇值'
   },
   triglyceride: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'甘油三酯值'
   },
   temperature: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  },
-  heartRate: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
+    data1: [],
+    data2: [],
+    data3: [],
+    xAxisData: [],
+    dataName1:'体温值'
   },
   electrocardiogram: {
     // expectedData: [130, 140, 141, 142, 145, 150, 160],
@@ -144,7 +164,7 @@ const navData = {
     {
       label: '心率',
       num: '0',
-      unit: 'bmp',
+      unit: '次/分钟',
       color: 'num-1'
     }
   ],
@@ -160,16 +180,21 @@ const navData = {
     {
       label: '血氧',
       num: '0',
-      unit: 'mmol/L',
+      unit: '%Sp02',
+      color: 'num-1'
+    },
+    {
+      label: '心率',
+      num: '0',
+      unit: '次/分钟',
       color: 'num-1'
     }
   ],
   cholesterol: [
     {
-      label: '胆固醇',
+      label: '总胆固醇',
       num: '0',
-      unit: 'mmol/L',
-
+      unit: 'umol/L',
       color: 'num-1'
     }
   ],
@@ -178,7 +203,6 @@ const navData = {
       label: '甘油三酯',
       num: '0',
       unit: 'mmol/L',
-
       color: 'num-1'
     }
   ],
@@ -187,7 +211,6 @@ const navData = {
       label: '尿酸',
       num: '0',
       unit: 'mmol/L',
-
       color: 'num-1'
     }
   ],
@@ -196,41 +219,31 @@ const navData = {
       label: '体温',
       num: '0',
       unit: 'mmol/L',
-
-      color: 'num-1'
-    }
-  ],
-  heartRate: [
-    {
-      label: '心率',
-      num: '0',
-      unit: 'mmol/L',
       color: 'num-1'
     }
   ],
   electrocardiogram: [
     {
-      label: '待开发',
-      num: '',
+      label: '心电图',
+      num: '开发中',
       unit: '',
-      color: ''
+      color: 'num-1'
     }
   ]
 }
 const navDataInfo = {
-  bloodPressure: '血压目标：高压 < 140，低压 > 90',
+  bloodPressure: '血压目标：高压 < 140，低压 > 90， 心率 60～100次/分',
   bloodSugar: '血糖目标：空腹 ≤ 6.1 mmol/L，餐后 ≤ 10.1mmol/L',
-  bloodOxygen: '血氧 ≥ 94SpO2',
+  bloodOxygen: '血氧 ≥ 94SpO2， 心率 60～100次/分',
   uricAcid: '尿酸目标：空腹（男）≤ 420mmol/L，女 ≤ 356mmol/L',
   cholesterol: '总胆固醇：5.17mmol/L',
   triglyceride: '甘油三酯：1.71mmol/L',
   temperature: '体温 36～37℃',
-  heartRate: '60～100次/分',
   electrocardiogram: ''
 
 }
 import { Swipe, SwipeItem } from 'vant'
-import LineChart from '../components/LineChart'
+import LineChart from '../components/LineChart/'
 export default {
   components: {
     [Swipe.name]: Swipe,
@@ -253,7 +266,6 @@ export default {
         { label: '总胆固醇', type: 'cholesterol' },
         { label: '甘油三酯', type: 'triglyceride' },
         { label: '体温', type: 'temperature' },
-        { label: '心率', type: 'heartRate' },
         { label: '心电图', type: 'electrocardiogram' }
       ],
       advertisingList: []
@@ -267,22 +279,25 @@ export default {
           this.getBloodPressure()
           break
         case 1:
-          this.newestBloodSugarByUserId()
+          this.getBloodSugar()
           break
         case 2:
-          this.newestBloodOxygenByUserId()
+          this.getBloodOxygen()
           break
         case 3:
-          this.newestUricAcidByUserId()
+          this.getUricAcid()
           break
         case 4:
-          this.newestCholesterolByUserId()
+          this.getCholesterol()
           break
         case 5:
-          this.newestGlycerinByUserId()
+          this.getGlycerin()
           break
         case 6:
-          this.newestBodyTemperatureByUserId()
+          this.getBodyTemperature()
+          break
+        case 7:
+          this.getElectrocardiogram()
           break
         default:
           this.getBloodPressure()
@@ -291,8 +306,8 @@ export default {
     }
   },
   created() {
-    this.getBloodPressure();
-    this.getAdvertisingList();
+    this.getBloodPressure()
+    this.getAdvertisingList()
   },
   methods: {
     checkTab(index, item) {
@@ -311,28 +326,38 @@ export default {
       this.navDataInfo = navDataInfo[type]
     },
     getList() {
-      this.$router.push('/health/home/list')
+      if (this.active == 0) {
+        this.$router.push('/dist-home-blood-pressure-list')
+      } else if(this.active == 2){
+        this.$router.push('/dist-home-blood-oxygen-list')
+      } else {
+        this.$router.push({ path: '/dist-home-other-list' , query: {active : this.active } })
+      }
+
     },
     getBloodPressure() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestBloodPressureByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.sbp
+        this.navData[0].unit = res.data.dataUnit
         this.navData[1].num = res.data.dbp
+        this.navData[1].unit = res.data.dataUnit
         this.navData[2].num = res.data.pulse
+        this.navData[2].unit = res.data.pulseUnit
       }).catch(err => {
         console.log(err)
       })
 
       listBloodPressureByUserId(query).then(res => {
-        let arraySbp = []
-        let arrayDbp = []
-        let arrayPulse = []
-        let arrayMeasureTime = []
-        if(res.data != null && res.data.length > 0){
+        const arraySbp = []
+        const arrayDbp = []
+        const arrayPulse = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             arraySbp.push(item.sbp)
             arrayDbp.push(item.dbp)
@@ -340,91 +365,198 @@ export default {
             arrayMeasureTime.push(item.measureTime)
           })
         }
-        this.lineChartData.sbpData = arraySbp
-        this.lineChartData.dbpData= arrayDbp
-        this.lineChartData.pulseData = arrayPulse
+        this.lineChartData.data1 = arraySbp
+        this.lineChartData.data2 = arrayDbp
+        this.lineChartData.data3 = arrayPulse
         this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    //血糖
-    newestBloodSugarByUserId() {
+    // 血糖
+    getBloodSugar() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestBloodSugarByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
+        this.navData[0].unit = res.data.dataUnit
+      }).catch(err => {
+        console.log(err)
+      })
+
+      listBloodSugarByUserId(query).then(res => {
+        const arrayDataValue = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
+          res.data.forEach(item => {
+            arrayDataValue.push(item.dataValue)
+            arrayMeasureTime.push(item.measureTime)
+          })
+        }
+        this.lineChartData.data1 = arrayDataValue
+        this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    newestBloodOxygenByUserId() {
+    //血氧
+    getBloodOxygen() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestBloodOxygenByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
+        this.navData[0].unit = res.data.dataUnit
+        this.navData[1].num = res.data.heartRate
+        this.navData[1].unit = res.data.heartRateUnit
+      }).catch(err => {
+        console.log(err)
+      })
+      listBloodOxygenByUserId(query).then(res => {
+        const arrayDataValue = []
+        const arrayHeartRate = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
+          res.data.forEach(item => {
+            arrayDataValue.push(item.dataValue)
+            arrayHeartRate.push(item.heartRate)
+            arrayMeasureTime.push(item.measureTime)
+          })
+        }
+        this.lineChartData.data1 = arrayDataValue
+        this.lineChartData.data2 = arrayHeartRate
+        this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    newestUricAcidByUserId() {
+    //尿酸
+    getUricAcid() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestUricAcidByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
+        this.navData[0].unit = res.data.dataUnit
+      }).catch(err => {
+        console.log(err)
+      })
+      listUricAcidByUserId(query).then(res => {
+        const arrayDataValue = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
+          res.data.forEach(item => {
+            arrayDataValue.push(item.dataValue)
+            arrayMeasureTime.push(item.measureTime)
+          })
+        }
+        this.lineChartData.data1 = arrayDataValue
+        this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    newestCholesterolByUserId() {
+    //总胆固醇
+    getCholesterol() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestCholesterolByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
+        this.navData[0].unit = res.data.dataUnit
+      }).catch(err => {
+        console.log(err)
+      })
+
+      listCholesterolByUserId(query).then(res => {
+        const arrayDataValue = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
+          res.data.forEach(item => {
+            arrayDataValue.push(item.dataValue)
+            arrayMeasureTime.push(item.measureTime)
+          })
+        }
+        this.lineChartData.data1 = arrayDataValue
+        this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    newestGlycerinByUserId() {
+    //甘油三酯
+    getGlycerin() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestGlycerinByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
+        this.navData[0].unit = res.data.dataUnit
+      }).catch(err => {
+        console.log(err)
+      })
+
+      listGlycerinByUserId(query).then(res => {
+        const arrayDataValue = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
+          res.data.forEach(item => {
+            arrayDataValue.push(item.dataValue)
+            arrayMeasureTime.push(item.measureTime)
+          })
+        }
+        this.lineChartData.data1 = arrayDataValue
+        this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    newestBodyTemperatureByUserId() {
+    //体温
+    getBodyTemperature() {
       const query = {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
-      this.measureTime = null;
+      this.measureTime = null
       newestBodyTemperatureByUserId(query).then(res => {
         this.measureTime = res.data.measureTime
         this.navData[0].num = res.data.dataValue
+        this.navData[0].unit = res.data.dataUnit
+      }).catch(err => {
+        console.log(err)
+      })
+
+      listBodyTemperatureByUserId(query).then(res => {
+        const arrayDataValue = []
+        const arrayMeasureTime = []
+        if (res.data != null && res.data.length > 0) {
+          res.data.forEach(item => {
+            arrayDataValue.push(item.dataValue)
+            arrayMeasureTime.push(item.measureTime)
+          })
+        }
+        this.lineChartData.data1 = arrayDataValue
+        this.lineChartData.xAxisData = arrayMeasureTime
       }).catch(err => {
         console.log(err)
       })
     },
-    //广告图
+    getElectrocardiogram() {
+
+    },
+    // 广告图
     getAdvertisingList() {
       getAdvertisingList().then(res => {
-        if(res.data != null && res.data.length > 0){
+        if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             this.advertisingList.push(item)
           })
@@ -435,7 +567,7 @@ export default {
     },
     goodsDetail(jumpLink) {
       this.$router.push(jumpLink)
-    },
+    }
 
   }
 }

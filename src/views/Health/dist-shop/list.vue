@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { goodsList} from '@/api/health/api'
+  import { goodsList} from '@/api/health/goodsList'
 import { Search, Card } from 'vant'
 export default {
   name: 'GoodList',
@@ -55,7 +55,6 @@ export default {
       })
     },
     onDetailClick(id) {
-      // this.$router.push({ path: '/goods-detail', query: { id } });
       this.$router.push({ path: '/dist-shop-detail' , query: {goodsId : id } })
     }
   }

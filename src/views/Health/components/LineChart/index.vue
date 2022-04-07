@@ -78,7 +78,7 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(this.chartData)
     },
-    setOptions({ sbpData, dbpData, pulseData, xAxisData } = {}) {
+    setOptions({ data1, data2, data3, xAxisData, dataName1, dataName2 } = {}) {
       // 基于准备好的dom，初始化echarts实例
       // const eChart = echarts.init(document.getElementById('echart'))
       // 绘制图表
@@ -119,7 +119,7 @@ export default {
           axisLabel: { show: false },
           splitArea: { show: false },
           splitLine: { show: false },
-          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月']
+          data: xAxisData
         }],
         yAxis: [{
           type: 'value',
@@ -179,7 +179,7 @@ export default {
         },
         series: [
           {
-            name: '高压',
+            name: dataName1,
             itemStyle: {
               normal: {
                 color: '#FF005A',
@@ -191,12 +191,12 @@ export default {
             },
             smooth: true,
             type: 'line',
-            data: sbpData,
+            data: data1,
             animationDuration: 2800,
             animationEasing: 'cubicInOut'
           },
           {
-            name: '低压',
+            name: dataName2,
             smooth: true,
             type: 'line',
             itemStyle: {
@@ -211,7 +211,7 @@ export default {
                 }
               }
             },
-            data: dbpData,
+            data: data2,
             animationDuration: 2800,
             animationEasing: 'quadraticOut'
           },
@@ -231,7 +231,7 @@ export default {
                 }
               }
             },
-            data: pulseData,
+            data: data3,
             animationDuration: 2800,
             animationEasing: 'quadraticOut'
           }

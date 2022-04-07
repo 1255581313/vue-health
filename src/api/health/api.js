@@ -36,12 +36,30 @@ export function newestBloodSugarByUserId(query) {
   })
 }
 
+// 查询用户血糖数据列表
+export function listBloodSugarByUserId(data) {
+  return request({
+    url: '/authapi/blood_sugarDeviceDataLog/getListDataByUserId',
+    method: 'post',
+    data
+  })
+}
+
 // 查询用户最新血氧数据
 export function newestBloodOxygenByUserId(query) {
   return request({
     url: '/authapi/blood_oxygenDeviceDataLog/getNewestDataByUserId',
     method: 'post',
     params: query
+  })
+}
+
+// 查询用户血氧数据列表
+export function listBloodOxygenByUserId(data) {
+  return request({
+    url: '/authapi/blood_oxygenDeviceDataLog/getListDataByUserId',
+    method: 'post',
+    data
   })
 }
 
@@ -54,12 +72,30 @@ export function newestUricAcidByUserId(query) {
   })
 }
 
+// 查询用户尿酸数据列表
+export function listUricAcidByUserId(data) {
+  return request({
+    url: '/authapi/uric_acidDeviceDataLog/getListDataByUserId',
+    method: 'post',
+    data
+  })
+}
+
 // 查询用户最新总胆固醇数据
 export function newestCholesterolByUserId(query) {
   return request({
     url: '/authapi/cholesterol_deviceDataLog/getNewestDataByUserId',
     method: 'post',
     params: query
+  })
+}
+
+// 查询用户总胆固醇数据列表
+export function listCholesterolByUserId(data) {
+  return request({
+    url: '/authapi/cholesterol_deviceDataLog/getListDataByUserId',
+    method: 'post',
+    data
   })
 }
 
@@ -72,12 +108,30 @@ export function newestGlycerinByUserId(query) {
   })
 }
 
+// 查询用户甘油三酯数据列表
+export function listGlycerinByUserId(data) {
+  return request({
+    url: '/authapi/glycerin_deviceDataLog/getListDataByUserId',
+    method: 'post',
+    data
+  })
+}
+
 // 查询用户最新体温数据
 export function newestBodyTemperatureByUserId(query) {
   return request({
     url: '/authapi/body_temperatureDeviceDataLog/getNewestDataByUserId',
     method: 'post',
     params: query
+  })
+}
+
+// 查询用户体温数据列表
+export function listBodyTemperatureByUserId(data) {
+  return request({
+    url: '/authapi/body_temperatureDeviceDataLog/getListDataByUserId',
+    method: 'post',
+    data
   })
 }
 
@@ -156,14 +210,6 @@ export function addressSave(data) {
      method: 'post',
      data
    })
-}
-
-const GoodsList = '/authapi/base_goods/getGoodsList' //商品列表
-export function goodsList() {
-  return request({
-    url: GoodsList,
-    method: 'post'
-  })
 }
 
 const GoodsDetail = '/authapi/base_goods/get' //商品详细
