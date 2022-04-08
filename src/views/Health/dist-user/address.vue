@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-address-list v-model="chosenAddressId" :list="addressList" @add="onAdd" @edit="onEdit" @select="onSelect"/>
+    <van-address-list v-model="chosenAddressId" :list="addressList" default-tag-text="默认" @add="onAdd" @edit="onEdit" @select="onSelect"/>
 
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      chosenAddressId: -1,
+      chosenAddressId: '',
       addressList: []
     }
   },
@@ -35,7 +35,6 @@ export default {
     },
     onSelect(item, index) {
       setLocalStorage({ AddressId: item.id })
-      this.$router.go(-1)
     },
     goback() {
       this.$router.go(-1)
@@ -48,12 +47,23 @@ export default {
         var list = res.data
         for (var i = 0; i < list.length; i++) {
           var item = list[i]
-          this.addressList.push({
-            id: item.id,
-            name: item.consignee,
-            tel: item.mobile,
-            address: item.province + item.city + item.county + ' ' + item.address
-          })
+          if(item.defaultAddress == 1){
+            this.addressList.push({
+              id: item.id,
+              name: item.consignee,
+              tel: item.mobile,
+              address: item.province + item.city + item.county + ' ' + item.address,
+              isDefault: true
+            })
+          }else{
+            this.addressList.push({
+              id: item.id,
+              name: item.consignee,
+              tel: item.mobile,
+              address: item.province + item.city + item.county + ' ' + item.address
+            })
+          }
+
         }
       })
     }

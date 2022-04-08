@@ -7,7 +7,7 @@
     />
   </div>
   <div class="statusbar-list-1-v-4">
-    <span class="title">我的</span>
+    <span class="title"></span>
     <div class="body">
       <div class="block-2">
         <div class="container-1">
@@ -218,9 +218,9 @@ export default {
       constants: {},
       cellsList: [
         { icon: 'location-o', img: '21', label: '我的设备', des: '', url: '/dist-user/device' },
-        { icon: 'location-o', img: '23', label: '健康档案', des: '完善信息获取积分', url: '/dist-user/device' },
+        { icon: 'location-o', img: '23', label: '健康档案', des: '完善信息获取积分', url: '/dist-user/healthRecords' },
         { icon: 'location-o', img: '25', label: '订单管理', des: '', url: '/dist-user/order-list' },
-        { icon: 'location-o', img: '28', label: '我的亲友', des: '', url: '/dist-user/device' },
+        { icon: 'location-o', img: '28', label: '我的亲友', des: '', url: '/dist-user/relatives' },
         { icon: 'location-o', img: '31', label: '地址管理', des: '', url: '/dist-user/address' }
         // { icon: 'location-o', label: '病历管理', des: '' },
         // { icon: 'location-o', label: '控糖方案', des: '' },
@@ -233,7 +233,6 @@ export default {
     toLink(url) {
       this.$router.push(url)
     }
-
   }
 
 }

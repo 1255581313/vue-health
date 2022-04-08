@@ -1,16 +1,6 @@
 <template>
   <div class="home">
-<!-- <van-tabs> -->
-  <!-- <van-tab v-for="(item,index) in healthTabList" :key="index" :title="item.title"> -->
-    <div class="header">
-      多功能测试仪
-    </div>
-  <van-empty  >
-   <div slot="description">"这里空空如也 </br>快去添加1台设备吧"</div>
-    <van-button round type="danger" plain class="bottom-button" @click="addDevice">去添加</van-button>
-  </van-empty>
-  <!-- </van-tab> -->
-
+    开发中
   </div>
 </template>
 
@@ -18,7 +8,7 @@
 import { Tab, Tabs, Swipe, SwipeItem, Grid, GridItem } from 'vant'
 
 export default {
-  name: 'GoodList',
+  name: 'healthRecords',
   components: {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,

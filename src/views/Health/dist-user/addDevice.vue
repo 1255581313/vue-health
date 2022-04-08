@@ -1,10 +1,10 @@
   <template>
     <div class="add-device">
     <div class="header">
-      <span>请扫码或输入设备SN号</span>
+      <span>请输入设备IMEI号</span>
     </div>
     <div class="main">
-      <input placeholder="请输入SN号" v-model="imei">
+      <input placeholder="请输入IMEI号" v-model="imei">
     </div>
     <van-button type="danger" size="large" @click="bind">绑定</van-button>
 
@@ -25,6 +25,10 @@ export default {
   },
   methods: {
     bind() {
+      if(this.imei == null){
+        this.$toast('请输入IMEI号')
+        return;
+      }
       const query = {
         imei: this.imei
       }
