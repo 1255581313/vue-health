@@ -254,6 +254,8 @@ export default {
   },
   data() {
     return {
+      startDate: '',
+      endDate: '',
       measureAllCount: null,
       measureTime: null,
       active: 0,
@@ -309,10 +311,24 @@ export default {
     }
   },
   created() {
+    this.startDate = this.formatDate(new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 90))
+    this.endDate = this.formatDate(new Date())
     this.getBloodPressure()
     this.getAdvertisingList()
   },
   methods: {
+    formatDate(date) {
+      const y = date.getFullYear()
+      let m = date.getMonth() + 1
+      if (m < 10) {
+        m = '0' + m
+      }
+      let d = date.getDate()
+      if (d < 10) {
+        d = '0' + d
+      }
+      return `${y}-${m}-${d}`
+    },
     checkTab(index, item) {
       this.active = index
       this.handleSetLineChartData(item.type)
@@ -355,8 +371,12 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-      listBloodPressureByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listBloodPressureByUserId(queryObject).then(res => {
         const arraySbp = []
         const arrayDbp = []
         const arrayPulse = []
@@ -399,14 +419,18 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-      listBloodSugarByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listBloodSugarByUserId(queryObject).then(res => {
         const arrayDataValue = []
         const arrayMeasureTime = []
         if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             arrayDataValue.push(item.dataValue)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arrayDataValue
@@ -439,7 +463,12 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-      listBloodOxygenByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listBloodOxygenByUserId(queryObject).then(res => {
         const arrayDataValue = []
         const arrayHeartRate = []
         const arrayMeasureTime = []
@@ -447,7 +476,7 @@ export default {
           res.data.forEach(item => {
             arrayDataValue.push(item.dataValue)
             arrayHeartRate.push(item.heartRate)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arrayDataValue
@@ -479,13 +508,18 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-      listUricAcidByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listUricAcidByUserId(queryObject).then(res => {
         const arrayDataValue = []
         const arrayMeasureTime = []
         if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             arrayDataValue.push(item.dataValue)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arrayDataValue
@@ -516,14 +550,18 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-      listCholesterolByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listCholesterolByUserId(queryObject).then(res => {
         const arrayDataValue = []
         const arrayMeasureTime = []
         if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             arrayDataValue.push(item.dataValue)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arrayDataValue
@@ -554,14 +592,18 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-      listGlycerinByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listGlycerinByUserId(queryObject).then(res => {
         const arrayDataValue = []
         const arrayMeasureTime = []
         if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             arrayDataValue.push(item.dataValue)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arrayDataValue
@@ -592,14 +634,18 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-
-      listBodyTemperatureByUserId(query).then(res => {
+      const queryObject = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        startTime: this.startDate,
+        endTime: this.endDate
+      }
+      listBodyTemperatureByUserId(queryObject).then(res => {
         const arrayDataValue = []
         const arrayMeasureTime = []
         if (res.data != null && res.data.length > 0) {
           res.data.forEach(item => {
             arrayDataValue.push(item.dataValue)
-            arrayMeasureTime.push(item.measureTime)
+            arrayMeasureTime.push(moment(item.measureTime).format("MM/DD"))
           })
         }
         this.lineChartData.data1 = arrayDataValue

@@ -4,49 +4,72 @@
       <span>请扫码或输入设备SN号</span>
     </div>
     <div class="main">
-      <input placeholder="请输入SN号">
-      <div class="btn" @click="scan">去扫码</div>
+      <input placeholder="请输入SN号" v-model="imei">
     </div>
-    <div class="des">
-      <span  class="title">支持扫码：</span>
-      <span class="text">1、产品说明书上的设备二维码(适用于老包装)</br>2、仪器背面的二维码(适用于新包装)</br>3、仪器背面的条形码</br>4、三高套装外包装上的二维码 </span>
-    </div>
-    <div class="link" @click="link">
-      <span class="text">点击查看，支持数据自动上报的仪器 ></span>
-    </div>
-
     <van-button type="danger" size="large" @click="bind">绑定</van-button>
 
   </div>
 </template>
 
 <script>
+  import { getDeviceRegisterByImei, getUserDeviceByImeiAndUserId,addUserDevice } from '@/api/health/deviceList'
+  import { Dialog } from 'vant'
 export default {
   name: 'HomeList',
   components: {},
 
   data() {
-    return {}
+    return {
+      imei: null
+    }
   },
   methods: {
-    scan() {
-      this.$toast({
-        message: '开发中',
-        duration: 1500
-      })
-    },
     bind() {
-      this.$toast({
-        message: '开发中',
-        duration: 1500
+      const query = {
+        imei: this.imei
+      }
+      const query2 = {
+        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        imei: this.imei
+      }
+      getDeviceRegisterByImei(query).then(res => {
+        if(res.status == 200 && res.data != null){
+          getUserDeviceByImeiAndUserId(query2).then(res => {
+            if(res.status == 200){
+              addUserDevice(query2).then(res => {
+                if(res.status == 200){
+                  Dialog.alert({
+                    message: '绑定成功',
+                  }).then(() => {
+                    this.$router.go(-1)
+                  });
+                }else{
+                  Dialog.alert({
+                    message: '绑定失败',
+                  }).then(() => {
+                    this.$router.go(-1)
+                  });
+                }
+              })
+            }else{
+              Dialog.alert({
+                title: '绑定失败',
+                message: '你已绑定过该设备，请确认',
+              }).then(() => {
+                // on close
+              });
+            }
+          })
+        }else{
+          Dialog.alert({
+            title: '绑定失败',
+            message: '请确认仪器是否为睿博设备',
+          }).then(() => {
+            // on close
+          });
+        }
       })
     },
-    link() {
-      this.$toast({
-        message: '开发中',
-        duration: 1500
-      })
-    }
   }
 }
 </script>
