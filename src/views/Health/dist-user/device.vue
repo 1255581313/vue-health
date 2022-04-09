@@ -1,25 +1,27 @@
 <template>
   <div class="home">
     <div class="header">我的设备</div>
-    <div v-for="item,index in deviceList" :key="index" class="list">
+    <div v-for="(item, index) in deviceList" :key="index" class="list">
       <div class="item">
         <div class="icon"> <img class="icon-list" :src="item.image" /> </div>
         <div class="content">
-          <div class="name">{{item.name}}</div>
-          <div class="name">{{item.imei}}</div>
-          <div class="type">{{item.type}}</div>
+          <div class="name">{{ item.name }}</div>
+          <div class="name">{{ item.imei }}</div>
+          <div class="type">{{ item.type }}</div>
         </div>
-        <div style="float: right;"><van-button type="danger" round size="large" @click="deleteDevice(item.id)">删除</van-button></div>
+        <div class="delete-btn"><van-button type="danger" round size="mini" @click="deleteDevice(item.id)">删除</van-button></div
+        >
       </div>
+
     </div>
     <div class="van-address-list__bottom">
-      <van-button type="danger" round size="large" @click="addDevice">新增设备</van-button>
+      <van-button class="van-address-list__add" type="danger" block round size="nomal" @click="addDevice">新增设备</van-button>
     </div>
   </div>
 </template>
 
 <script>
-  import { deviceList, deleteUserDevice } from '@/api/health/deviceList'
+import { deviceList, deleteUserDevice } from '@/api/health/deviceList'
 import { Tab, Tabs, Swipe, SwipeItem, Grid, GridItem, Button, Dialog } from 'vant'
 
 export default {
@@ -36,7 +38,7 @@ export default {
 
   data() {
     return {
-      deviceList:[]
+      deviceList: []
     }
   },
   created() {
@@ -48,8 +50,8 @@ export default {
         userId: '73cdcf1c485c4416ab7741f3a23caf5b'
       }
       deviceList(query).then(res => {
-        if(res.data != null && res.data.length > 0){
-         this.deviceList = res.data
+        if (res.data != null && res.data.length > 0) {
+          this.deviceList = res.data
         }
       })
     },
@@ -59,21 +61,21 @@ export default {
     deleteDevice(id) {
       Dialog.confirm({
         title: '提示',
-        message: '此操作将永久删除设备, 是否继续?',
+        message: '此操作将永久删除设备, 是否继续?'
       })
         .then(() => {
           const query = {
             id: id
           }
           deleteUserDevice(query).then(res => {
-            if(res.status == 200 ){
+            if (res.status == 200) {
               this.$router.go(0)
             }
           })
         })
         .catch(() => {
           // on cancel
-        });
+        })
     }
   }
 }
@@ -90,38 +92,47 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.16rem;
-  padding: 0.1rem;
+  font-size: 16px;
+  padding: 0.2rem;
   background-color: #fff;
 }
 .add-btn {
   padding: 0.2rem;
 }
-.list{
+.list {
   width: 100%;
   padding: 0.3rem;
   box-sizing: border-box;
+  padding: 0 0.37rem;
 }
 .item {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  .icon{
+  background-color: #fff;
+  margin-top: 0.3rem;
+  position: relative;
+  .icon {
     width: 2rem;
     height: 1.5rem;
-    img{
+    img {
       width: 100%;
       height: 100%;
     }
   }
   .content {
-       display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
     padding-left: 0.2rem;
     height: 1rem;
+  }
+  .delete-btn{
+    position: absolute;
+    right: 0.2rem;
+
   }
 }
 .van-address-list__bottom {
@@ -134,6 +145,9 @@ export default {
   padding: 0 16px;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
-  background-color: #fff;
+}
+.van-address-list__add{
+      height: 40px;
+    margin: 5px 0;
 }
 </style>

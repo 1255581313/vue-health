@@ -47,8 +47,8 @@ module.exports = {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       // java接口
       [process.env.VUE_APP_BASE_API]: {
-        //target: `http://gzrb.vestamedical.cn/jrtech`,
-        target: `http://localhost:8082`,
+        target: `http://gzrb.vestamedical.cn/jrtech`,
+        // target: `http://localhost:8082`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

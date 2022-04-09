@@ -17,6 +17,13 @@ export const routes = [
       //   }
       // },
       {
+        path: '',
+        component: resolve => require(['@/views/Health/dist-home/App'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
         path: 'dist-home',
         component: resolve => require(['@/views/Health/dist-home/App'], resolve),
         meta: {
