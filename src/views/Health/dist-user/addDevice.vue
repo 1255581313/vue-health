@@ -1,19 +1,19 @@
   <template>
-    <div class="add-device">
+  <div class="add-device">
     <div class="header">
       <span>请输入设备IMEI号</span>
     </div>
     <div class="main">
-      <input placeholder="请输入IMEI号" v-model="imei">
+      <input v-model="imei" class="ipt" placeholder="请输入IMEI号" />
     </div>
-    <van-button type="danger" size="large" @click="bind">绑定</van-button>
 
+    <van-button type="danger" size="momal" block @click="bind">绑定</van-button>
   </div>
 </template>
 
 <script>
-  import { getDeviceRegisterByImei, getUserDeviceByImeiAndUserId,addUserDevice } from '@/api/health/deviceList'
-  import { Dialog } from 'vant'
+import { getDeviceRegisterByImei, getUserDeviceByImeiAndUserId, addUserDevice } from '@/api/health/deviceList'
+import { Dialog } from 'vant'
 export default {
   name: 'HomeList',
   components: {},
@@ -25,9 +25,9 @@ export default {
   },
   methods: {
     bind() {
-      if(this.imei == null){
+      if (this.imei == null) {
         this.$toast('请输入IMEI号')
-        return;
+        return
       }
       const query = {
         imei: this.imei
@@ -37,43 +37,43 @@ export default {
         imei: this.imei
       }
       getDeviceRegisterByImei(query).then(res => {
-        if(res.status == 200 && res.data != null){
+        if (res.status == 200 && res.data != null) {
           getUserDeviceByImeiAndUserId(query2).then(res => {
-            if(res.status == 200){
+            if (res.status == 200) {
               addUserDevice(query2).then(res => {
-                if(res.status == 200){
+                if (res.status == 200) {
                   Dialog.alert({
-                    message: '绑定成功',
+                    message: '绑定成功'
                   }).then(() => {
                     this.$router.go(-1)
-                  });
-                }else{
+                  })
+                } else {
                   Dialog.alert({
-                    message: '绑定失败',
+                    message: '绑定失败'
                   }).then(() => {
                     this.$router.go(-1)
-                  });
+                  })
                 }
               })
-            }else{
+            } else {
               Dialog.alert({
                 title: '绑定失败',
-                message: '你已绑定过该设备，请确认',
+                message: '你已绑定过该设备，请确认'
               }).then(() => {
                 // on close
-              });
+              })
             }
           })
-        }else{
+        } else {
           Dialog.alert({
             title: '绑定失败',
-            message: '请确认仪器是否为睿博设备',
+            message: '请确认仪器是否为睿博设备'
           }).then(() => {
             // on close
-          });
+          })
         }
       })
-    },
+    }
   }
 }
 </script>
@@ -91,6 +91,7 @@ export default {
   padding: 0.18rem;
   line-height: 0.18rem;
   white-space: nowrap;
+  padding: 0.37rem;
   span {
     color: rgb(83, 83, 83);
     font-family: 'PingFang SC';
@@ -110,15 +111,19 @@ export default {
   width: 100%;
   height: 1rem;
   position: relative;
-  input {
+  .ipt {
     height: 100%;
     border: none;
     width: 100%;
-    padding-right: 1.2rem;
-    padding-left: 0.4rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    line-height: 0.2rem;
+    // padding-right: 1.2rem;
+    // padding-left: 0.4rem;
+    // padding-top: 0.2rem;
+    // padding-bottom: 0.2rem;
+    // line-height: 0.2rem;
+    padding: 0.2rem;
+    font-size: 16px;
+
+    box-sizing: border-box;
   }
   .btn {
     position: absolute;
@@ -181,32 +186,27 @@ export default {
     font-size: 16px;
     font-weight: 400;
   }
-
 }
 
 //  /deep/
- .van-button {
-    position: absolute;
-    bottom: 0;
-  }
+.van-button {
+  position: absolute;
+  bottom: 0;
+}
 
 input:-ms-input-placeholder {
-    font-size: 16px;
-}/* Internet Explorer 10+ */
+  font-size: 16px;
+} /* Internet Explorer 10+ */
 
 input::-webkit-input-placeholder {
-    font-size: 16px;
-
-}/* WebKit browsers */
+  font-size: 16px;
+} /* WebKit browsers */
 
 input::-moz-placeholder {
-    font-size: 16px;
-
-}/* Mozilla Firefox 4 to 18 */
+  font-size: 16px;
+} /* Mozilla Firefox 4 to 18 */
 
 input:-moz-placeholder {
-    font-size: 16px;
-
-}/* Mozilla Firefox 19+ */
-
+  font-size: 16px;
+} /* Mozilla Firefox 19+ */
 </style>
