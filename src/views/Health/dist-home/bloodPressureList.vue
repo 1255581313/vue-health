@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import { listBloodPressureByUserId} from '@/api/health/api'
+  import { listBloodPressureByUserId, wxLogin} from '@/api/health/api'
   import moment from "moment"
 import { Calendar } from 'vant'
 
@@ -53,6 +53,12 @@ export default {
 
   data() {
     return {
+      user: {
+        id: '',
+        userImage: '',
+        nickName: '',
+        realName: ''
+      },
       bloodPressureList:[],
       show: false,
       startDate: '',
@@ -62,15 +68,62 @@ export default {
     }
   },
   created() {
+    this.getCode()
     this.startDate = this.formatDate(new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 90))
     this.endDate = this.formatDate(new Date())
     this.getBloodPressureList();
   },
 
   methods: {
+    getCode () { // 非静默授权，第一次有弹框
+      if(localStorage.getItem("user") != null && localStorage.getItem("user") != undefined){
+        let json = JSON.parse(localStorage.getItem("user"))
+        this.user.id = json.id;
+        this.user.userImage = json.userImage;
+        this.user.nickName = json.nickName;
+        this.user.realName = json.realName;
+      }else{
+        this.code = ''
+        var local = window.location.href // 获取页面url
+        var appid = 'wx21bf873790f060a8'
+        this.code = this.getUrlCode().code // 截取code
+        if (this.code == null || this.code === '') { // 如果没有code，则去请求
+          window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+        } else {
+          // 你自己的业务逻辑
+          const query = {
+            code: this.code
+          }
+          wxLogin(query).then(res => {
+            if(res.status == 200){
+              this.user.id = res.data.id
+              this.user.userImage = res.data.userImage
+              this.user.nickName = res.data.nickName
+              this.user.realName = res.data.realName
+              localStorage.setItem("user", JSON.stringify(this.user));
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }
+    },
+    getUrlCode() { // 截取url中的code方法
+      var url = location.search
+      this.winUrl = url
+      var theRequest = new Object()
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1)
+        var strs = str.split("&")
+        for(var i = 0; i < strs.length; i ++) {
+          theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+        }
+      }
+      return theRequest
+    },
     getBloodPressureList() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }

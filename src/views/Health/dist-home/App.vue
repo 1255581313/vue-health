@@ -256,11 +256,9 @@ export default {
     return {
       user: {
         id: '',
-        mobile: '',
         userImage: '',
         nickName: '',
-        realName: '',
-        sex: ''
+        realName: ''
       },
       startDate: '',
       endDate: '',
@@ -330,11 +328,9 @@ export default {
       if(localStorage.getItem("user") != null && localStorage.getItem("user") != undefined){
         let json = JSON.parse(localStorage.getItem("user"))
         this.user.id = json.id;
-        this.user.mobile = json.mobile;
         this.user.userImage = json.userImage;
         this.user.nickName = json.nickName;
         this.user.realName = json.realName;
-        this.user.sex = json.sex;
       }else{
         this.code = ''
         var local = window.location.href // 获取页面url
@@ -350,11 +346,9 @@ export default {
           wxLogin(query).then(res => {
             if(res.status == 200){
               this.user.id = res.data.id
-              this.user.mobile = res.data.mobile
               this.user.userImage = res.data.userImage
               this.user.nickName = res.data.nickName
               this.user.realName = res.data.realName
-              this.user.sex = res.data.sex
               localStorage.setItem("user", JSON.stringify(this.user));
             }
           }).catch(err => {
