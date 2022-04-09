@@ -1,6 +1,15 @@
 
 import request from '@/utils/request'
 
+// 获取用户信息
+export function wxLogin(query) {
+  return request({
+    url: '/pmtapi/callBack',
+    method: 'get',
+    params: query
+  })
+}
+
 export function getPagedList(data) {
   return request({
     url: '/authapi/body_temperatureDeviceDataLog/getPagedList',

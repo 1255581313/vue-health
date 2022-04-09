@@ -2,9 +2,9 @@
   <div class="page home-page-dist">
     <div class="group">
       <div class="primary-1" src="./images/img_4.png">
-        <img class="picture" src="./images/img_5.png" />
+        <img class="picture" :src="user.userImage" />
       </div>
-      <span class="title">梁国辉</span>
+      <span class="title">{{user.nickName}}</span>
     </div>
     <div class="time-wrapper"><span class="time">{{measureTime}}</span><span class="time" style="color: #00b9b3;font-weight: bold;" v-if="measureAllCount != null">（第{{measureAllCount}}次)</span></div>
     <div class="list">
@@ -246,7 +246,6 @@ const navDataInfo = {
 import { Swipe, SwipeItem } from 'vant'
 import LineChart from '../components/LineChart/'
 import moment from "moment"
-import { getLocalStorage, setLocalStorage } from '@/utils/local-storage'
 export default {
   components: {
     [Swipe.name]: Swipe,
@@ -255,6 +254,14 @@ export default {
   },
   data() {
     return {
+      user: {
+        id: '',
+        mobile: '',
+        userImage: '',
+        nickName: '',
+        realName: '',
+        sex: ''
+      },
       startDate: '',
       endDate: '',
       measureAllCount: null,
@@ -312,7 +319,7 @@ export default {
     }
   },
   created() {
-    //this.getCode()
+    this.getCode()
     this.startDate = this.formatDate(new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 90))
     this.endDate = this.formatDate(new Date())
     this.getBloodPressure()
@@ -320,15 +327,40 @@ export default {
   },
   methods: {
     getCode () { // 非静默授权，第一次有弹框
-      this.code = ''
-      var local = window.location.href // 获取页面url
-      var appid = 'wx21bf873790f060a8'
-      this.code = this.getUrlCode().code // 截取code
-      if (this.code == null || this.code === '') { // 如果没有code，则去请求
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
-      } else {
-        // 你自己的业务逻辑
-        alert(this.code)
+      if(localStorage.getItem("user") != null && localStorage.getItem("user") != undefined){
+        let json = JSON.parse(localStorage.getItem("user"))
+        this.user.id = json.id;
+        this.user.mobile = json.mobile;
+        this.user.userImage = json.userImage;
+        this.user.nickName = json.nickName;
+        this.user.realName = json.realName;
+        this.user.sex = json.sex;
+      }else{
+        this.code = ''
+        var local = window.location.href // 获取页面url
+        var appid = 'wx21bf873790f060a8'
+        this.code = this.getUrlCode().code // 截取code
+        if (this.code == null || this.code === '') { // 如果没有code，则去请求
+          window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+        } else {
+          // 你自己的业务逻辑
+          const query = {
+            code: this.code
+          }
+          wxLogin(query).then(res => {
+            if(res.status == 200){
+              this.user.id = res.data.id
+              this.user.mobile = res.data.mobile
+              this.user.userImage = res.data.userImage
+              this.user.nickName = res.data.nickName
+              this.user.realName = res.data.realName
+              this.user.sex = res.data.sex
+              localStorage.setItem("user", JSON.stringify(this.user));
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }
       }
     },
     getUrlCode() { // 截取url中的code方法
@@ -383,7 +415,7 @@ export default {
     },
     getBloodPressure() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -399,7 +431,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }
@@ -435,7 +467,7 @@ export default {
     // 血糖
     getBloodSugar() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -447,7 +479,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }
@@ -477,7 +509,7 @@ export default {
     //血氧
     getBloodOxygen() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -491,7 +523,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }
@@ -524,7 +556,7 @@ export default {
     //尿酸
     getUricAcid() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -536,7 +568,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }
@@ -566,7 +598,7 @@ export default {
     //总胆固醇
     getCholesterol() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -578,7 +610,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }
@@ -608,7 +640,7 @@ export default {
     //甘油三酯
     getGlycerin() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -620,7 +652,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }
@@ -650,7 +682,7 @@ export default {
     //体温
     getBodyTemperature() {
       const query = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b'
+        userId: this.user.id
       }
       this.measureTime = null
       this.measureAllCount = null
@@ -662,7 +694,7 @@ export default {
         console.log(err)
       })
       const queryObject = {
-        userId: '73cdcf1c485c4416ab7741f3a23caf5b',
+        userId: this.user.id,
         startTime: this.startDate,
         endTime: this.endDate
       }

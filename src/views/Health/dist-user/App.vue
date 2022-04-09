@@ -13,7 +13,7 @@
         <div class="container-1">
           <img
             class="picture"
-            src="./images/img_5.png"
+            :src="user.userImage"
           />
         </div>
         <!-- <div class="container-2">
@@ -73,7 +73,7 @@
           src="./images/img_12.png"
         />
       </div>
-      <span class="caption">温柔小绵羊</span>
+      <span class="caption">{{user.nickName}}</span>
     </div>
   </div>
   <!-- <div class="list-1-v-4">
@@ -209,12 +209,20 @@
   </div>
 </template>
 <script>
-
+  import {wxLogin} from '@/api/health/api'
 export default {
   components: {
   },
   data() {
     return {
+      user: {
+        id: '',
+        mobile: '',
+        userImage: '',
+        nickName: '',
+        realName: '',
+        sex: ''
+      },
       constants: {},
       cellsList: [
         { icon: 'location-o', img: '21', label: '我的设备', des: '', url: '/dist-user/device' },
@@ -229,7 +237,60 @@ export default {
       ]
     }
   },
+  created() {
+    this.getCode()
+  },
   methods: {
+    getCode () { // 非静默授权，第一次有弹框
+      if(localStorage.getItem("user") != null && localStorage.getItem("user") != undefined){
+        let json = JSON.parse(localStorage.getItem("user"))
+        this.user.id = json.id;
+        this.user.mobile = json.mobile;
+        this.user.userImage = json.userImage;
+        this.user.nickName = json.nickName;
+        this.user.realName = json.realName;
+        this.user.sex = json.sex;
+      }else{
+        this.code = ''
+        var local = window.location.href // 获取页面url
+        var appid = 'wx21bf873790f060a8'
+        this.code = this.getUrlCode().code // 截取code
+        if (this.code == null || this.code === '') { // 如果没有code，则去请求
+          window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+        } else {
+          // 你自己的业务逻辑
+          const query = {
+            code: this.code
+          }
+          wxLogin(query).then(res => {
+            if(res.status == 200){
+              this.user.id = res.data.id
+              this.user.mobile = res.data.mobile
+              this.user.userImage = res.data.userImage
+              this.user.nickName = res.data.nickName
+              this.user.realName = res.data.realName
+              this.user.sex = res.data.sex
+              localStorage.setItem("user", JSON.stringify(this.user));
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      }
+    },
+    getUrlCode() { // 截取url中的code方法
+      var url = location.search
+      this.winUrl = url
+      var theRequest = new Object()
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1)
+        var strs = str.split("&")
+        for(var i = 0; i < strs.length; i ++) {
+          theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+        }
+      }
+      return theRequest
+    },
     toLink(url) {
       this.$router.push(url)
     }
