@@ -72,7 +72,7 @@
       <!-- <img class="cover" src="./images/img_9.png" /> -->
       <div class="device-box cover">
         <div class="ad">
-          <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+          <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" lazy-render>
             <van-swipe-item v-for="(item, index) in advertisingList" :key="index" @click="goodsDetail(item.jumpLink)">
               <img v-lazy="item.content"/>
               <!--<van-image
