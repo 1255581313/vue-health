@@ -4,10 +4,10 @@
       <span>请输入设备IMEI号</span>
     </div>
     <div class="main">
-      <input placeholder="请输入IMEI号" v-model="imei">
+      <input v-model="imei" class="ipt" placeholder="请输入IMEI号" />
     </div>
-    <van-button type="danger" size="large" @click="bind">绑定</van-button>
 
+    <van-button type="danger" size="momal" block @click="bind">绑定</van-button>
   </div>
 </template>
 
@@ -31,7 +31,9 @@ export default {
     }
   },
   created() {
-    this.getCode()
+    if(process.env.NODE_ENV != 'development'){
+      this.getCode()
+    }
   },
   methods: {
     getCode () { // 非静默授权，第一次有弹框
@@ -147,6 +149,7 @@ export default {
   padding: 0.18rem;
   line-height: 0.18rem;
   white-space: nowrap;
+  padding: 0.37rem;
   span {
     color: rgb(83, 83, 83);
     font-family: 'PingFang SC';
@@ -166,15 +169,19 @@ export default {
   width: 100%;
   height: 1rem;
   position: relative;
-  input {
+  .ipt {
     height: 100%;
     border: none;
     width: 100%;
-    padding-right: 1.2rem;
-    padding-left: 0.4rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    line-height: 0.2rem;
+    // padding-right: 1.2rem;
+    // padding-left: 0.4rem;
+    // padding-top: 0.2rem;
+    // padding-bottom: 0.2rem;
+    // line-height: 0.2rem;
+    padding: 0.2rem;
+    font-size: 16px;
+
+    box-sizing: border-box;
   }
   .btn {
     position: absolute;
@@ -237,32 +244,27 @@ export default {
     font-size: 16px;
     font-weight: 400;
   }
-
 }
 
 //  /deep/
- .van-button {
-    position: absolute;
-    bottom: 0;
-  }
+.van-button {
+  position: absolute;
+  bottom: 0;
+}
 
 input:-ms-input-placeholder {
-    font-size: 16px;
-}/* Internet Explorer 10+ */
+  font-size: 16px;
+} /* Internet Explorer 10+ */
 
 input::-webkit-input-placeholder {
-    font-size: 16px;
-
-}/* WebKit browsers */
+  font-size: 16px;
+} /* WebKit browsers */
 
 input::-moz-placeholder {
-    font-size: 16px;
-
-}/* Mozilla Firefox 4 to 18 */
+  font-size: 16px;
+} /* Mozilla Firefox 4 to 18 */
 
 input:-moz-placeholder {
-    font-size: 16px;
-
-}/* Mozilla Firefox 19+ */
-
+  font-size: 16px;
+} /* Mozilla Firefox 19+ */
 </style>

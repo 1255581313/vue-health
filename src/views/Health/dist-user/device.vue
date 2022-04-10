@@ -9,11 +9,11 @@
           <div class="name">{{item.imei}}</div>
           <div class="type">{{item.type}}</div>
         </div>
-        <div style="float: right;"><van-button type="danger" round size="large" @click="deleteDevice(item.id)">删除</van-button></div>
+        <div  class="delete-btn"><van-button type="danger" round size="mini" @click="deleteDevice(item.id)">删除</van-button></div>
       </div>
     </div>
     <div class="van-address-list__bottom">
-      <van-button type="danger" round size="large" @click="addDevice">新增设备</van-button>
+      <van-button  class="van-address-list__add" type="danger" round size="large" @click="addDevice">新增设备</van-button>
     </div>
   </div>
 </template>
@@ -47,7 +47,9 @@ export default {
     }
   },
   created() {
-    this.getCode()
+    if(process.env.NODE_ENV != 'development'){
+      this.getCode()
+    }
     this.loadDevice()
   },
   methods: {
@@ -144,8 +146,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.16rem;
-  padding: 0.1rem;
+  font-size: 16px;
+  padding: 0.2rem;
   background-color: #fff;
 }
 .add-btn {
@@ -155,12 +157,16 @@ export default {
   width: 100%;
   padding: 0.3rem;
   box-sizing: border-box;
+    padding: 0 0.37rem;
 }
 .item {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+   background-color: #fff;
+  margin-top: 0.3rem;
+  position: relative;
   .icon{
     width: 2rem;
     height: 1.5rem;
@@ -177,6 +183,12 @@ export default {
     padding-left: 0.2rem;
     height: 1rem;
   }
+  .delete-btn{
+    position: absolute;
+    top: 0.4rem;
+    right: 0.2rem;
+
+  }
 }
 .van-address-list__bottom {
   position: fixed;
@@ -188,6 +200,9 @@ export default {
   padding: 0 16px;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
-  background-color: #fff;
+}
+.van-address-list__add{
+      height: 40px;
+    margin: 5px 0;
 }
 </style>

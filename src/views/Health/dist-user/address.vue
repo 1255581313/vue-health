@@ -30,7 +30,9 @@ export default {
   },
 
   created() {
-    this.getCode()
+    if(process.env.NODE_ENV != 'development'){
+      this.getCode()
+    }
     this.loadAddress()
   },
   methods: {

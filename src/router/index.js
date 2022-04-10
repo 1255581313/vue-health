@@ -17,6 +17,70 @@ export const routes = [
       //   }
       // },
       {
+        path: 'dist-user/healthRecords',
+        component: resolve => require(['@/views/Health/dist-user/healthRecords/index'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/healthRecords/base',
+        component: resolve => require(['@/views/Health/dist-user/healthRecords/base'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/healthRecords/address',
+        component: resolve => require(['@/views/Health/dist-user/healthRecords/address'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/healthRecords/size',
+        component: resolve => require(['@/views/Health/dist-user/healthRecords/size'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/healthRecords/type',
+        component: resolve => require(['@/views/Health/dist-user/healthRecords/type'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/healthRecords/manage',
+        component: resolve => require(['@/views/Health/dist-user/healthRecords/manage'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+
+      {
+        path: 'dist-user/relatives',
+        component: resolve => require(['@/views/Health/dist-user/relatives/index'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/relatives/list',
+        component: resolve => require(['@/views/Health/dist-user/relatives/list'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
+        path: 'dist-user/relatives/add',
+        component: resolve => require(['@/views/Health/dist-user/relatives/add'], resolve),
+        meta: {
+          title: 'dist'
+        }
+      },
+      {
         path: 'dist-home',
         component: resolve => require(['@/views/Health/dist-home/App'], resolve),
         meta: {

@@ -61,7 +61,9 @@ export default {
     }
   },
   created() {
-    this.getCode()
+    if(process.env.NODE_ENV != 'development'){
+      this.getCode()
+    }
     this.startDate = this.formatDate(new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 90))
     this.endDate = this.formatDate(new Date())
     this.getBloodOxygenList();

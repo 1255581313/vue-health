@@ -236,7 +236,9 @@ export default {
     }
   },
   created() {
-    this.getCode()
+    if(process.env.NODE_ENV != 'development'){
+      this.getCode()
+    }
   },
   methods: {
     getCode () { // 非静默授权，第一次有弹框
